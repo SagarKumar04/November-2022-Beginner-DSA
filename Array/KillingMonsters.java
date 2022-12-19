@@ -24,22 +24,31 @@ public class KillingMonsters {
         4 5
          */
 
-        int remainingMonstersInLastTown = 0;
+        int lastFriendsRemainingCapacity = 0;
         int totalNumberOfMonstersKilled = 0;
         for(int i = 0; i < N; i++) {
-            int numberOfMonstersAtIthTown = A[i];
-            int capacityOfIthFriend = B[i];
+            int numberOfMonstersInIthTown = A[i];
+            int iThFriendCapacity = B[i];
 
-            numberOfMonstersAtIthTown = numberOfMonstersAtIthTown
-                    - ();
+            numberOfMonstersInIthTown =
+                    numberOfMonstersInIthTown -
+                            Math.min(numberOfMonstersInIthTown, lastFriendsRemainingCapacity);
 
-            int numberOfKilledMonsters = Math.min(numberOfMonstersAtIthTown, capacityOfIthFriend);
+            int numberOfMonstersKilledByIthFriend =
+                    Math.min(numberOfMonstersInIthTown, iThFriendCapacity);
 
-            numberOfMonstersAtIthTown = numberOfMonstersAtIthTown - numberOfKilledMonsters;
+            numberOfMonstersInIthTown = numberOfMonstersInIthTown -
+                    numberOfMonstersKilledByIthFriend;
 
-            remainingMonstersInLastTown = capacityOfIthFriend - numberOfKilledMonsters;
+            lastFriendsRemainingCapacity = iThFriendCapacity - numberOfMonstersKilledByIthFriend;
 
-            totalNumberOfMonstersKilled = totalNumberOfMonstersKilled + (A[i] - numberOfMonstersAtIthTown);
+            totalNumberOfMonstersKilled = totalNumberOfMonstersKilled +
+                    (A[i] - numberOfMonstersInIthTown);
         }
+
+        totalNumberOfMonstersKilled = totalNumberOfMonstersKilled +
+                Math.min(A[N], lastFriendsRemainingCapacity);
+
+        System.out.println(totalNumberOfMonstersKilled);
     }
 }
